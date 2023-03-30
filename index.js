@@ -1,7 +1,9 @@
 import { inquirerMenu, pause, readInput } from './helpers/inquirer.js';
+import Search from './models/searches.js';
 
 const main = async() => {
    
+    const searches = new Search();
     let opt;
     
     do {
@@ -9,7 +11,16 @@ const main = async() => {
 
         switch ( opt ) {
             case 1:
-                console.log('Seleccionaste la opcion 1');
+                const place = await readInput('City: ');
+                console.log( place );
+
+                console.log('\nCity Information\n'.green);
+                console.log('City');
+                console.log('Lat');
+                console.log('Long');
+                console.log('Temperature');
+                console.log('Minimum');
+                console.log('Maximum');
             break;
 
             case 2:
@@ -19,6 +30,10 @@ const main = async() => {
             case 0:
                 console.log('Seleccionaste la opcion 3');
             break; 
+
+            
+
+
         }
 
         if ( opt !== 0) await pause();
