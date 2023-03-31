@@ -1,5 +1,10 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import { inquirerMenu, pause, readInput } from './helpers/inquirer.js';
 import Search from './models/searches.js';
+
+console.log(process.env.MAPBOX_key);
 
 const main = async() => {
    
