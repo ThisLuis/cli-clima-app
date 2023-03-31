@@ -8,11 +8,26 @@ class Search {
         // TODO: Create BD
     }
 
+    get paramsMapBox() {
+        return {
+            'language': 'es',
+            'access_token': 'pk.eyJ1IjoieW9zb3lsdWlzIiwiYSI6ImNsZncybGZ1NjAzM3AzZXA2bmhmcHo2ajIifQ.uaBkbzwL6vKSXMRGNtCxRQ',
+            'limit': 5,
+        }
+    }
+
     async city( place = '' ) {
-        // console.log( 'City', place );
+
         try {
-            const response = await axios.get('https://api.mapbox.com/geocoding/v5/mapbox.places/tegucigalpa.json?proximity=ip&language=es&access_token=pk.eyJ1IjoieW9zb3lsdWlzIiwiYSI6ImNsZncybGZ1NjAzM3AzZXA2bmhmcHo2ajIifQ.uaBkbzwL6vKSXMRGNtCxRQ');
+
+            const instance = axios.create({
+                baseURL: `https://api.mapbox.com/geocoding/v5/mapbox.places/${ place }.json`,
+                params: this.paramsMapBox
+            });
+
+            const response = await instance.get();
             console.log( response.data );
+
         } catch ( error ) {
             return []
         }
