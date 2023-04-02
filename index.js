@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import { inquirerMenu, pause, readInput } from './helpers/inquirer.js';
+import { inquirerMenu, pause, readInput, listPlaces } from './helpers/inquirer.js';
 import Search from './models/searches.js';
 
 console.log(process.env.MAPBOX_key);
@@ -16,13 +16,16 @@ const main = async() => {
 
         switch ( opt ) {
             case 1:
-                const place = await readInput('City: ');
-                await searches.city( place );
+                const search_term = await readInput('City: ');
+                const places = await searches.city( search_term );
+                const id = await listPlaces( places );
+                const { idx, name, lat, lng} = places.find( i => i.id === id);
+                
 
                 console.log('\nCity Information\n'.green);
-                console.log('City');
-                console.log('Lat');
-                console.log('Long');
+                console.log('City', name );
+                console.log('Lat', lat );
+                console.log('Long', lng );
                 console.log('Temperature');
                 console.log('Minimum');
                 console.log('Maximum');

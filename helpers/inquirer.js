@@ -67,28 +67,28 @@ const readInput = async( message ) => {
     return desc;
 }
 
-const listTasksToDelete = async( tasks = []) => {
+const listPlaces = async( places = []) => {
 
-    const choices = tasks.map( (task, index) => {
+    const choices = places.map( (place, index) => {
 
         const idx = `${ index + 1}.`.green;
 
         return {
-            value: task.id,
-            name: `${ idx} ${ task.description}`,
+            value: place.id,
+            name: `${ idx} ${ place.name }`,
         }
     });
 
     choices.unshift({
         value: '0',
-        name: '0.'.green + ' Cancelar'
+        name: '0.'.green + ' Cancel'
     });
 
     const questions = [
         {
             type: 'list',
             name: 'id',
-            message: 'Borrar',
+            message: 'Select Place: ',
             choices
         }
     ];
@@ -135,4 +135,4 @@ const confirm = async( message) => {
     const { ok } = await inquirer.prompt( question );
     return ok;
 }
-export { inquirerMenu, pause, readInput, listTasksToDelete, confirm, showListCheckList };
+export { inquirerMenu, pause, readInput, confirm, showListCheckList, listPlaces };
