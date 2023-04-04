@@ -1,8 +1,10 @@
-import axios from 'axios';
+
+
 
 class Search {
 
     history = [ '' ];
+    dbPath = './db/database.json';
 
     constructor() {
         // TODO: Create BD
@@ -70,6 +72,30 @@ class Search {
         } catch (error) {
             console.log( error );
         }
+    }
+
+    addHistory( place = '') {
+        // TODO: Prevenir duplicados
+        if ( this.history.includes( place.toLocaleLowerCase())) {
+            return;
+        }
+
+        this.history.unshift( place );
+
+        // Save DB
+        this.saveDB();
+    }
+
+    saveDB() {
+        const payload = {
+            history: this.history,
+        };
+
+        fs.writeFileSync(this.dbPath, JSON.stringify( payload ));
+    }
+
+    readDB() {
+
     }
     
 }

@@ -19,8 +19,13 @@ const main = async() => {
                 const search_term = await readInput('City: ');
                 const places = await searches.city( search_term );
                 const id = await listPlaces( places );
+                // if ( id === 0) continue;
                 const { name, lat, lng} = places.find( i => i.id === id);
+
+                // Save DB
+                searches.addHistory( name );
                 
+                // Weather
                 const weather = await searches.weatherByPlace( lat, lng );
                 const { desc, min, max, temp } = weather;
 
@@ -36,7 +41,11 @@ const main = async() => {
             break;
 
             case 2:
-                console.log('Seleccionaste la opcion 2');
+                searches.history.forEach( (place, index) =>  {
+                    const idx = `${ index + 1}`.green;
+                    console.log(`${ idx} ${ place }`);
+    
+                });
             break;
 
             case 0:
