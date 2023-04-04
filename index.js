@@ -19,16 +19,20 @@ const main = async() => {
                 const search_term = await readInput('City: ');
                 const places = await searches.city( search_term );
                 const id = await listPlaces( places );
-                const { idx, name, lat, lng} = places.find( i => i.id === id);
+                const { name, lat, lng} = places.find( i => i.id === id);
                 
+                const weather = await searches.weatherByPlace( lat, lng );
+                const { desc, min, max, temp } = weather;
 
+                console.clear();
                 console.log('\nCity Information\n'.green);
-                console.log('City', name );
+                console.log('City', name.green );
                 console.log('Lat', lat );
                 console.log('Long', lng );
-                console.log('Temperature');
-                console.log('Minimum');
-                console.log('Maximum');
+                console.log('Temperature', temp);
+                console.log('Minimum', min);
+                console.log('Maximum', max);
+                console.log('Weather like as: ', desc.green);
             break;
 
             case 2:
